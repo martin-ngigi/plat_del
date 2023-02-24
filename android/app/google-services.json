@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "639961073738",
+    "project_id": "platdel-88265",
+    "storage_bucket": "platdel-88265.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639961073738:android:cdc80cd40707c26cc17eb3",
+        "android_client_info": {
+          "package_name": "com.example.plat_del"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639961073738-37nj7at39l2brftup7816tu86o51l5v5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plat_del",
+            "certificate_hash": "d3a6b9c830690bded732f257aa7ec0bfd51ee27a"
+          }
+        },
+        {
+          "client_id": "639961073738-cl1mnpc7sefft7pq0qo6j6kpodvu6img.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVpuWNy1ngHY4KI3r65ISamAngb08hPR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639961073738-cl1mnpc7sefft7pq0qo6j6kpodvu6img.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "639961073738-q9eh8fm2ubqvt3fsgeuktnts5l203qjl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.platDel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
