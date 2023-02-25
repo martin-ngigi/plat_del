@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:plat_del/screens/voice_call.dart';
 
 import '../models/user_model.dart';
 import '../widgets/message_textfield.dart';
@@ -69,7 +70,18 @@ class ChatScreen extends StatelessWidget {
                   child: GestureDetector(
                     child: Icon(Icons.call),
                     onTap: (){
-
+                      //navigate to call
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VoiceCall(
+                                  currentUser: currentUser,
+                                  friendId: friendId,
+                                  friendName: friendName,
+                                  friendImage: friendImage
+                              )
+                          )
+                      );
                     },
                   ),
                 ),
