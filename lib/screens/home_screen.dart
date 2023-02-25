@@ -1,8 +1,11 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 
 import '../models/user_model.dart';
+import 'auth_screen.dart';
 import 'hs.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,6 +23,18 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Home Screen'),
         centerTitle: true,
         backgroundColor: Colors.deepOrange,
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await GoogleSignIn().signOut();
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AuthScreen()),
+                        (route) => false);
+              },
+              icon: const Icon(Icons.logout))
+        ],
       ),
       body: Center(child: Text(" Home Page")),
       floatingActionButton: FloatingActionButton(
