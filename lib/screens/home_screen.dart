@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 
 import '../models/user_model.dart';
+import 'hs.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  UserModel user;
+  HomeScreen(this.user, {super.key});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -20,6 +22,16 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.deepOrange,
       ),
       body: Center(child: Text(" Home Page")),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepOrange,
+        child: const Icon(Icons.message, ),
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => MainScreen(widget.user)));
+          // MaterialPageRoute(
+          //     builder: (context) => SearchScreen(widget.user)));
+        },
+      ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:plat_del/screens/auth_screen.dart';
 import 'package:plat_del/screens/home_screen.dart';
 
@@ -21,7 +22,12 @@ class MyApp extends StatelessWidget {
   Future<Widget> userSignedIn() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      return HomeScreen();
+      DocumentSnapshot userData = await FirebaseFirestore.instance
+          .collection('user')
+          .doc(user.uid)
+          .get();
+      UserModel userModel = UserModel.fromJson(userData);
+      return HomeScreen(userModel);
     } else {
       return const AuthScreen();
     }
