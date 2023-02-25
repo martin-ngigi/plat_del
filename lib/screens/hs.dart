@@ -90,6 +90,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../models/user_model.dart';
+import 'chat_screen.dart';
 
 class MainScreen extends StatefulWidget {
   UserModel user;
@@ -107,6 +108,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            backgroundColor: Colors.deepOrange,
             title: Card(
           child: TextField(
             decoration: InputDecoration(
@@ -150,7 +152,14 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                           trailing: IconButton(
                               onPressed: () {
-
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ChatScreen(
+                                            currentUser: widget.user,
+                                            friendId: data['uid'],
+                                            friendName: data['name'],
+                                            friendImage: data['image'])));
                               },
                               icon: const Icon(Icons.message)),
                         );
@@ -174,7 +183,15 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                           trailing: IconButton(
                               onPressed: () {
-
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ChatScreen(
+                                            currentUser: widget.user,
+                                            friendId: data[index]['uid'],
+                                            friendName: data[index]['name'],
+                                            friendImage: data[index]
+                                            ['image'])));
                               },
                               icon: const Icon(Icons.message)),
                         );
