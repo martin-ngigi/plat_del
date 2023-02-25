@@ -53,6 +53,30 @@ class ChatScreen extends StatelessWidget {
             )
           ],
         ),
+        actions: [
+          Stack(
+            children: [
+              Container(
+                width: 50,
+                height: 50,
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(5),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.green,
+                ),
+                child: ClipOval(
+                  child: GestureDetector(
+                    child: Icon(Icons.call),
+                    onTap: (){
+
+                    },
+                  ),
+                ),
+              )
+            ],
+          )
+        ],
       ),
       body: Column(
         children: [
