@@ -363,6 +363,6 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void update(){
-
+    toastInfo(message: "Update coming soon");
   }
 }

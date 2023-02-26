@@ -52,3 +52,10 @@ flutter clean
 flutter pub get
 ```
 
+# Reducing flutter app size:
+- Run following commands:
+```
+flutter clean
+flutter build apk --target-platform android-arm,android-arm64
+```
+- Then build the... i.e. ro build APK, select "Build" on top > then "flutter" > then "Build APK"
