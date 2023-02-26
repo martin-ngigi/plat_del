@@ -10,6 +10,7 @@ import 'package:plat_del/screens/settings_screen.dart';
 import 'package:plat_del/widgets/widgets.dart';
 
 import '../models/user_model.dart';
+import '../utils/encrypt_data.dart';
 import 'auth_screen.dart';
 import 'chat_screen.dart';
 import 'hs.dart';
@@ -59,7 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: snapshot.data.docs.length,
                   itemBuilder: (context, index) {
                     var friendId = snapshot.data.docs[index].id;
-                    var lastMsg = snapshot.data.docs[index]['last_msg'];
+                    var encrypted_lastMsg = snapshot.data.docs[index]['last_msg'];
+                    String decrypted_last_message = EncryptData.encryption(encrypted_lastMsg, "decryption"); //
+
                     // var date = snapshot.data.docs[index]['date'];
                     var a = DateTime.parse(
                         snapshot.data.docs[index]['date'].toDate().toString());
@@ -106,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: 200,
                                     height: 40,
                                     child: Text(
-                                      "$lastMsg",
+                                      "$decrypted_last_message",
                                       style: const TextStyle(color: Colors.grey),
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
