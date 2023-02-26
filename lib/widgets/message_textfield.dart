@@ -3,6 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/encrypt_data.dart';
+
 class MessageTextField extends StatefulWidget {
   final String currentId;
   final String friendId;
@@ -69,7 +71,12 @@ class _MessageTextFieldState extends State<MessageTextField> {
           ),
           GestureDetector(
             onTap: () async {
-              String message = _controller.text;
+              String message1 = _controller.text;
+
+              //encrypt message
+              //String message = EncryptData.encryptAES(message1);
+              String message = EncryptData.encryption(message1, "encryption");
+
               _controller.clear();
               await FirebaseFirestore.instance
                   .collection('user')

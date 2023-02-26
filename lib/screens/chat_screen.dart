@@ -4,8 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:plat_del/screens/voice_call.dart';
 
 import '../models/user_model.dart';
+import '../utils/encrypt_data.dart';
 import '../widgets/message_textfield.dart';
 import '../widgets/single_message.dart';
+
 
 class ChatScreen extends StatelessWidget {
   final UserModel currentUser;
@@ -127,10 +129,15 @@ class ChatScreen extends StatelessWidget {
                                   .toDate()
                                   .toString());
                               var time = DateFormat(' hh:mm a').format(a);
-                              bool isMe = snapshot.data.docs[index]['senderId'] ==
-                                  currentUser.uid;
+                              bool isMe = snapshot.data.docs[index]['senderId'] == currentUser.uid;
+                              //encrypted message
+                              String encrypted_message = snapshot.data.docs[index]['message'];
+                              //decrypted message
+                              String decrypted_message = EncryptData.encryption(encrypted_message, "decryption"); //
+
+                              //EncryptData.decryptAES2();
                               return SingleMessage(
-                                  message: snapshot.data.docs[index]['message'],
+                                  message: decrypted_message,
                                   isMe: isMe,
                                   time: time);
                             });
@@ -143,4 +150,5 @@ class ChatScreen extends StatelessWidget {
       ),
     );
   }
+
 }

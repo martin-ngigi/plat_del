@@ -70,6 +70,9 @@ dependencies:
   # toast
   fluttertoast: ^8.0.9
 
+  #encrypt msg
+  encrypt: ^5.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
