@@ -5,6 +5,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:plat_del/screens/profile_page.dart';
+import 'package:plat_del/widgets/widgets.dart';
 
 import '../models/user_model.dart';
 import 'auth_screen.dart';
@@ -177,18 +179,18 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: (){
 
               },
-              selectedColor: Colors.blue,
+              selectedColor: Colors.deepOrangeAccent,
               selected: true,
               contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               leading: Icon(Icons.home),
               title: const Text(
                 "Home",
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.orange),
               ),
             ),
             ListTile(
               onTap: (){
-
+                nextScreenReplace(context, ProfilePage(user: widget.user,));
               },
               contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               leading: Icon(Icons.person),
