@@ -150,6 +150,68 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CircularProgressIndicator(),
             );
           }),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.symmetric(vertical: 50),
+          children: [
+            Icon(
+              Icons.account_circle,
+              size: 150,
+              color: Colors.grey[700],
+            ),
+            const SizedBox(height: 15,),
+            const Text(
+                "Username",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+              ),
+            ),
+            const SizedBox(height: 30,),
+            const Divider(
+              height: 2,
+              color: Colors.black,
+            ),
+            ListTile(
+              onTap: (){
+
+              },
+              selectedColor: Colors.blue,
+              selected: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              leading: Icon(Icons.person),
+              title: const Text(
+                "Profile",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            ListTile(
+              onTap: (){
+
+              },
+              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              leading: const Icon(Icons.settings),
+              title: const Text(
+                "Settings",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            ListTile(
+              onTap: (){
+
+              },
+              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              leading: const Icon(Icons.power_settings_new),
+              title: const Text(
+                  "Logout",
+                style: TextStyle(color: Colors.black),
+              ),
+
+            )
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepOrange,
         child: const Icon(Icons.message, ),
