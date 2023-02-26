@@ -162,8 +162,8 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.grey[700],
             ),
             const SizedBox(height: 15,),
-            const Text(
-                "Username",
+            Text(
+                widget.user.name,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -185,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.home),
               title: const Text(
                 "Home",
-                style: TextStyle(color: Colors.orange),
+                style: TextStyle(color: Colors.deepOrange),
               ),
             ),
             ListTile(

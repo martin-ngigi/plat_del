@@ -96,14 +96,21 @@ class _ProfilePageState extends State<ProfilePage> {
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 50),
           children: [
-            Icon(
-              Icons.account_circle,
-              size: 150,
-              color: Colors.grey[700],
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(200),
+                child: Image.network(
+                  widget.user.image,
+                  fit: BoxFit.fill,
+                  // height: 100,
+                  // width: 100,
+                ),
+              ),
             ),
             const SizedBox(height: 15,),
-            const Text(
-              "Username",
+            Text(
+              widget.user.name,
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
