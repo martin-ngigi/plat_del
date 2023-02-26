@@ -180,6 +180,17 @@ class _HomeScreenState extends State<HomeScreen> {
               selectedColor: Colors.blue,
               selected: true,
               contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              leading: Icon(Icons.home),
+              title: const Text(
+                "Home",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            ListTile(
+              onTap: (){
+
+              },
+              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               leading: Icon(Icons.person),
               title: const Text(
                 "Profile",
@@ -197,6 +208,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(color: Colors.black),
               ),
             ),
+            const Divider(
+              height: 2,
+              color: Colors.black,
+            ),
             ListTile(
               onTap: (){
 
@@ -208,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(color: Colors.black),
               ),
 
-            )
+            ),
           ],
         ),
       ),
