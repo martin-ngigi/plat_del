@@ -6,6 +6,7 @@ import 'package:plat_del/screens/profile_page.dart';
 import 'package:plat_del/values/colors.dart';
 
 import '../widgets/widgets.dart';
+import 'auth_screen.dart';
 import 'home_screen.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -117,8 +118,37 @@ Drawer _buildDrawer(BuildContext context, SettingScreen widget){
           color: Colors.black,
         ),
         ListTile(
-          onTap: (){
-
+          onTap: () async{
+            showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (context){
+                  return AlertDialog(
+                    title: Text("Logout"),
+                    content: Text("Are you sure you want to logout ?"),
+                    actions: [
+                      IconButton(
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.cancel,
+                          color: Colors.green,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async{
+                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => AuthScreen()), (route) => false);
+                        },
+                        icon: const Icon(
+                          Icons.done,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  );
+                }
+            );
           },
           contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           leading: const Icon(Icons.power_settings_new),
