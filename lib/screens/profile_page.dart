@@ -2,11 +2,14 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:plat_del/screens/settings_screen.dart';
+import 'package:plat_del/widgets/toast.dart';
 
 import '../models/user_model.dart';
+import '../values/colors.dart';
 import '../widgets/widgets.dart';
 import 'auth_screen.dart';
 import 'home_screen.dart';
@@ -23,8 +26,17 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String fullName = "";
+  String email = "";
+  String phone = "";
+
   @override
   Widget build(BuildContext context) {
+
+    fullName = widget.user.name;
+    email = widget.user.email;
+    phone = "";
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepOrange,
@@ -39,61 +51,193 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 160, vertical: 10),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.network(
-                  widget.user.image,
-                  fit: BoxFit.fill,
-                  // height: 100,
-                  // width: 100,
+      body: SingleChildScrollView(
+        child: Container(
+          //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 160, vertical: 10),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.network(
+                    widget.user.image,
+                    fit: BoxFit.fill,
+                    // height: 100,
+                    // width: 100,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 14,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "Name: ",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                  ),),
-                Text(
-                  widget.user.name,
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "Email: ",
-                  style: TextStyle(
+              const SizedBox(height: 14,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Name: ",
+                    style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold
-                  ),),
-                Text(
-                  widget.user.email,
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.normal,
+                    ),),
+                  Text(
+                    widget.user.name,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Email: ",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                    ),),
+                  Text(
+                    widget.user.email,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 50,),
+              const Text(
+                "Update Your profile",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              TextFormField(
+                //decoration: textInputDecoration, //also works
+                initialValue: fullName,
+                decoration: textInputDecoration.copyWith(
+                  labelText: "Full Name",
+                  prefixIcon: Icon(
+                    Icons.person,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
-              ],
-            ),
-          ],
+                onChanged: (val){
+                  setState(() {
+                    fullName = val;
+                    print("Name: Hello i am here ${fullName}");
+                  });
+                },
+
+                // check tha validation
+                validator: (val) {
+                  if(val!.isNotEmpty){
+                    return null;
+                  }
+                  else{
+                    "Name cannot be empty";
+                  }
+                },
+              ),
+              const SizedBox(height: 10,),
+              TextFormField(
+                //decoration: textInputDecoration, //also works
+                initialValue: email,
+                decoration: textInputDecoration.copyWith(
+                  labelText: "Email",
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                onChanged: (val){
+                  setState(() {
+                    email = val;
+                    print("Email: Hello i am here ${email}");
+                  });
+                },
+
+                // check tha validation
+                validator: (val) {
+                  return RegExp(
+                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      .hasMatch(val!)
+                      ? null
+                      : "Please enter a valid email";
+                },
+              ),
+              const SizedBox(height: 10,),  //for vertical spacing
+              TextFormField(
+                //decoration: textInputDecoration, //also works
+                // initialValue: "",
+                decoration: textInputDecoration.copyWith(
+                  labelText: "phone",
+                  prefixIcon: Icon(
+                    Icons.phone,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                onChanged: (val){
+                  setState(() {
+                    phone = val;
+                    print("phone: Hello i am here ${phone}");
+                  });
+                },
+
+                //phone email
+                validator: (val){
+                  if(val!.length < 10){
+                    return "Phone must be at least 10 characters.";
+                  }
+                  else{
+                    return null;
+                  }
+                },
+
+              ),
+              const SizedBox(height: 20,),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey[400],
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)
+                    ),
+                  ),
+                  onPressed: (){
+                    update();
+                  },
+                  child: Text(
+                    "Update",
+                    style: TextStyle(
+                      color: Colors.black, fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10,),  //for vertical spacing
+              Text.rich(
+                  TextSpan(
+                    text: "Account deletion...",
+                    style: TextStyle(color: Colors.black, fontSize: 14),
+                    children: [
+                      TextSpan(
+                          text: "Delete?",
+                          style: TextStyle(
+                              color: Colors.red,
+                              decoration: TextDecoration.underline
+                          ),
+                          recognizer: TapGestureRecognizer()..onTap = (){
+                            toastInfo(message: "Account deletion coming soon.");
+                          }
+                      )
+                    ],
+                  )
+              ),
+            ],
+          ),
         ),
       ),
       drawer: Drawer(
@@ -216,5 +360,9 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
+
+  void update(){
+
   }
 }
