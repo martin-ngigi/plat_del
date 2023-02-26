@@ -1,6 +1,8 @@
 //stful
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:plat_del/models/user_model.dart';
 import 'package:plat_del/screens/profile_page.dart';
 import 'package:plat_del/values/colors.dart';
@@ -138,7 +140,13 @@ Drawer _buildDrawer(BuildContext context, SettingScreen widget){
                       ),
                       IconButton(
                         onPressed: () async{
-                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => AuthScreen()), (route) => false);
+                          //sign out from GoogleSignIn and FirebaseAuth
+                          await GoogleSignIn().signOut();
+                          await FirebaseAuth.instance.signOut();
+                          //navigate to AuthScreen
+                          Navigator.pushAndRemoveUntil(context,
+                              MaterialPageRoute(builder: (context) => const AuthScreen()),
+                                  (route) => false);
                         },
                         icon: const Icon(
                           Icons.done,

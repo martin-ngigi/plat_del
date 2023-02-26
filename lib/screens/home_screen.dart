@@ -243,7 +243,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           IconButton(
                             onPressed: () async{
-                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => AuthScreen()), (route) => false);
+                              //sign out from GoogleSignIn and FirebaseAuth
+                              await GoogleSignIn().signOut();
+                              await FirebaseAuth.instance.signOut();
+                              //naviggate to AuthScreen
+                              Navigator.pushAndRemoveUntil(context,
+                                  MaterialPageRoute(builder: (context) => const AuthScreen()),
+                                      (route) => false);
                             },
                             icon: const Icon(
                               Icons.done,
