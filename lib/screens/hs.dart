@@ -88,6 +88,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:plat_del/widgets/toast.dart';
 
 import '../models/user_model.dart';
 import 'chat_screen.dart';
@@ -162,6 +163,16 @@ class _MainScreenState extends State<MainScreen> {
                                             friendImage: data['image'])));
                               },
                               icon: const Icon(Icons.message)),
+                          onTap: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChatScreen(
+                                        currentUser: widget.user,
+                                        friendId: data['uid'],
+                                        friendName: data['name'],
+                                        friendImage: data['image'])));
+                          },
                         );
                       }
                       if (data['name']
