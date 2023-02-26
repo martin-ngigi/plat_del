@@ -135,7 +135,6 @@ class ChatScreen extends StatelessWidget {
                               //decrypted message
                               String decrypted_message = EncryptData.encryption(encrypted_message, "decryption"); //
 
-                              //EncryptData.decryptAES2();
                               return SingleMessage(
                                   message: decrypted_message,
                                   isMe: isMe,

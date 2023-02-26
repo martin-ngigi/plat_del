@@ -74,7 +74,6 @@ class _MessageTextFieldState extends State<MessageTextField> {
               String message1 = _controller.text;
 
               //encrypt message
-              //String message = EncryptData.encryptAES(message1);
               String message = EncryptData.encryption(message1, "encryption");
 
               _controller.clear();
