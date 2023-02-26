@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:plat_del/screens/settings_screen.dart';
 
 import '../models/user_model.dart';
 import '../widgets/widgets.dart';
@@ -112,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Text(
               widget.user.name,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15
               ),
@@ -148,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             ListTile(
               onTap: (){
-
+                nextScreenReplace(context, SettingScreen(user: widget.user,));
               },
               contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               leading: const Icon(Icons.settings),

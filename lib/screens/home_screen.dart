@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:plat_del/screens/profile_page.dart';
+import 'package:plat_del/screens/settings_screen.dart';
 import 'package:plat_del/widgets/widgets.dart';
 
 import '../models/user_model.dart';
@@ -165,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
                 widget.user.name,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15
               ),
@@ -201,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               onTap: (){
-
+                nextScreenReplace(context, SettingScreen(user: widget.user,));
               },
               contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               leading: const Icon(Icons.settings),
