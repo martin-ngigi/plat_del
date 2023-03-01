@@ -73,6 +73,11 @@ dependencies:
   #encrypt msg
   encrypt: ^5.0.1
 
+  #permissions
+  permission_handler: ^9.2.0
+  #voice and video call engine
+  agora_rtc_engine: ^6.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
