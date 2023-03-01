@@ -59,3 +59,5 @@ flutter clean
 flutter build apk --target-platform android-arm,android-arm64
 ```
  
+# Ringtones 
+- url -> https://www.zedge.net/ringtones

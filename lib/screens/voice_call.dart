@@ -5,6 +5,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:plat_del/screens/voice_state.dart';
 
 import '../models/user_model.dart';
 import '../utils/settings.dart';
@@ -13,6 +14,8 @@ import '../widgets/functional_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
+
+import 'package:just_audio/just_audio.dart';
 
 class VoiceCall extends StatefulWidget {
 
@@ -34,115 +37,10 @@ class VoiceCall extends StatefulWidget {
 
 }
 
-@override
-Widget _build(BuildContext context, VoiceCall widget, String timmer) {
-  return SafeArea(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: Colors.white,
-        ),
-        padding: EdgeInsets.all(50.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 10.0,
-            ),
-            Text(
-              'VOICE CALL',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 15),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Text(
-              '${widget.friendName}',
-              style: TextStyle(
-                  color: Colors.deepOrange,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 20),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Text(
-              "Time: ${timmer}",
-              style: TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(200.0),
-              child: Image.network(
-                widget.friendImage,
-                fit: BoxFit.cover,
-
-                //'https://avatars.githubusercontent.com/u/55280499?v=4',
-                 // height: 200.0,
-                 // width: 200.0,
-              ),
-            ),
-            SizedBox(
-              height: 50.0,
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children:[
-                FunctionalButton(
-                  title: 'Speaker',
-                  icon: Icons.phone_in_talk,
-                  onPressed: () {},
-                ),
-                FunctionalButton(
-                  title: 'Video Call',
-                  icon: Icons.videocam,
-                  onPressed: () {},
-                ),
-                FunctionalButton(
-                  title: 'Mute',
-                  icon: Icons.mic_off,
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 120.0,
-            ),
-            FloatingActionButton(
-              onPressed: () {
-                //navigate to previous screen, i.e. ChatScreen
-                Navigator.pop(context);
-              },
-              elevation: 20.0,
-              shape: CircleBorder(side: BorderSide(color: Colors.red)),
-              mini: false,
-              child: Icon(
-                Icons.call_end,
-                color: Colors.red,
-              ),
-              backgroundColor: Colors.red[100],
-            )
-          ],
-        ),
-      ),
-    );
-}
-
-
 class _VoiceCallState extends State<VoiceCall> {
+
+  final state = VoiceCallState(); //get the variable
+  final player = AudioPlayer();
 
   late Timer _timmerInstance;
   int _start = 0;
@@ -202,9 +100,116 @@ class _VoiceCallState extends State<VoiceCall> {
             }));
   }
 
+  @override
+  Widget _build(BuildContext context, VoiceCall widget, String timmer) {
+    return SafeArea(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+        padding: EdgeInsets.all(50.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(
+              'VOICE CALL',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w300,
+                  fontSize: 15),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              '${widget.friendName}',
+              style: TextStyle(
+                  color: Colors.deepOrange,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 20),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              "Time: ${timmer}",
+              style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(200.0),
+              child: Image.network(
+                widget.friendImage,
+                fit: BoxFit.cover,
 
+                //'https://avatars.githubusercontent.com/u/55280499?v=4',
+                // height: 200.0,
+                // width: 200.0,
+              ),
+            ),
+            SizedBox(
+              height: 50.0,
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children:[
+                FunctionalButton(
+                  title: 'Speaker',
+                  icon: Icons.phone_in_talk,
+                  onPressed: () {},
+                ),
+                FunctionalButton(
+                  title: 'Video Call',
+                  icon: Icons.videocam,
+                  onPressed: () {},
+                ),
+                FunctionalButton(
+                  title: 'Mute',
+                  icon: Icons.mic_off,
+                  onPressed: () {
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 120.0,
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                //exit call
+                leave();
 
-
+                //navigate to previous screen, i.e. ChatScreen
+                Navigator.pop(context);
+              },
+              elevation: 20.0,
+              shape: CircleBorder(side: BorderSide(color: Colors.red)),
+              mini: false,
+              child: Icon(
+                Icons.call_end,
+                color: Colors.red,
+              ),
+              backgroundColor: Colors.red[100],
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
 
   @override
@@ -232,7 +237,7 @@ class _VoiceCallState extends State<VoiceCall> {
                     child: ElevatedButton(
                       child: const Text("Join"),
                       onPressed: () => {
-                        join()
+                        //join()
                       },
                     ),
                   ),
@@ -241,7 +246,7 @@ class _VoiceCallState extends State<VoiceCall> {
                     child: ElevatedButton(
                       child: const Text("Leave"),
                       onPressed: () => {
-                        leave()
+                        // leave();
                       },
                     ),
                   ),
@@ -278,6 +283,10 @@ class _VoiceCallState extends State<VoiceCall> {
   }
 
   Future<void> setupVoiceSDKEngine() async {
+
+    // Load a URL
+    await player.setAsset("assets/sounds/niggas_in_paris.mp3");
+
     // retrieve or request microphone permission
     await [Permission.microphone].request();
 
@@ -290,7 +299,19 @@ class _VoiceCallState extends State<VoiceCall> {
     // Register the event handler
     agoraEngine.registerEventHandler(
       RtcEngineEventHandler(
+        /**
+         * error codes
+         */
+        onError: (ErrorCodeType err, String msg){
+          print('.....[onError] err: $err, , msg: $msg');
+        },
+
         onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
+          //play audio
+          // Play without waiting for completion
+          player.play();
+
+
           showMessage("Local user uid:${connection.localUid} joined the channel");
           setState(() {
             _isJoined = true;
@@ -311,6 +332,9 @@ class _VoiceCallState extends State<VoiceCall> {
         },
       ),
     );
+
+    //join the channel
+    join();
   }
 
   void  join() async {
@@ -335,12 +359,17 @@ class _VoiceCallState extends State<VoiceCall> {
       _remoteUid = null;
     });
     agoraEngine.leaveChannel();
+    agoraEngine.release();
+    player.stop();
+    _timmerInstance.cancel();
   }
 
   @override
   void dispose() async {
     _timmerInstance.cancel();
     await agoraEngine.leaveChannel();
+    agoraEngine.release();
+    player.stop();
     super.dispose();
   }
 
